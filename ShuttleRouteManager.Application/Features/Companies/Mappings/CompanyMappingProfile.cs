@@ -9,9 +9,15 @@ public class CompanyMappingProfile : Profile
 {
     public CompanyMappingProfile()
     {
-        CreateMap<Company, GetCompaniesQueryResult>().ReverseMap();
-        CreateMap<Company, GetCompanyByIdQueryResult>().ReverseMap();
-        CreateMap<Company, CreateCompanyCommand>().ReverseMap();
-        CreateMap<Company, UpdateCompanyCommand>().ReverseMap();
+        CreateMap<Company, GetCompaniesQueryResult>();
+
+        CreateMap<Company, GetCompanyByIdQueryResult>();
+
+       
+        CreateMap<Driver, DriverSummaryDto>();
+        CreateMap<Bus, BusSummaryDto>();
+
+        CreateMap<CreateCompanyCommand, Company>();
+        CreateMap<UpdateCompanyCommand, Company>();
     }
 }

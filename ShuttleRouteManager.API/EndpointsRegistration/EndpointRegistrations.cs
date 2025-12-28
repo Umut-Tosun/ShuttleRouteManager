@@ -2,6 +2,7 @@
 using ShuttleRouteManager.Application.Features.Buses.Endpoints;
 using ShuttleRouteManager.Application.Features.Companies.Endpoints;
 using ShuttleRouteManager.Application.Features.Drivers.Endpoints;
+using ShuttleRouteManager.Application.Features.Routes.Endpoints;
 using ShuttleRouteManager.Application.Features.RouteStops.Endpoints;
 using ShuttleRouteManager.Application.Features.TripAppUsers.Endpoints;
 
@@ -14,7 +15,7 @@ public static class EndpointRegistrations
         app.RegisterCompanyEndpoints();
         app.RegisterDriverEndpoints();
         app.RegisterBusEndpoints();
-        app.RegisterRouteStopEndpoints();
+        app.RegisterRouteEndpoints();
         app.RegisterRouteStopEndpoints();
         app.RegisterTripAppUserEndpoints();
         app.RegisterAppUserEndpoints();

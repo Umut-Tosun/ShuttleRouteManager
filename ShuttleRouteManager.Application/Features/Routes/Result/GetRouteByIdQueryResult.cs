@@ -6,7 +6,7 @@ using ShuttleRouteManager.Domain.Absractions;
 
 namespace ShuttleRouteManager.Application.Features.Routes.Result;
 
-public class GetRouteByIdQueryResult : Entity
+public class GetRouteByIdQueryResult : EntityDto
 {
     public string Name { get; set; } = default!;
     public string StartPoint { get; set; } = default!;
@@ -14,9 +14,11 @@ public class GetRouteByIdQueryResult : Entity
     public TimeSpan MorningStartTime { get; set; }
     public TimeSpan EveningStartTime { get; set; }
     public Guid BusId { get; set; }
-    public GetBusesQueryResult? Bus { get; set; }
     public Guid DriverId { get; set; }
-    public GetDriversQueryResult? Driver { get; set; }
-    public ICollection<GetRouteStopsQueryResult>? RouteStops { get; set; }
-    public ICollection<GetTripAppUsersQueryResult>? TripAppUsers { get; set; }
+
+    
+    public BusForRouteSummaryDto? Bus { get; set; }
+    public DriverForRouteSummaryDto? Driver { get; set; }
+    public List<RouteStopForRouteDto> RouteStops { get; set; } = new();
+
 }

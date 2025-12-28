@@ -9,9 +9,14 @@ public class DriverMappingProfile : Profile
 {
     public DriverMappingProfile()
     {
-        CreateMap<Driver, GetDriversQueryResult>().ReverseMap();
-        CreateMap<Driver, GetDriverByIdQueryResult>().ReverseMap();
-        CreateMap<Driver, CreateDriverCommand>().ReverseMap();
-        CreateMap<Driver, UpdateDriverCommand>().ReverseMap();
+        CreateMap<Driver, GetDriversQueryResult>();
+        CreateMap<Driver, GetDriverByIdQueryResult>();
+
+       
+        CreateMap<Company, CompanySummaryDto>();
+        CreateMap<Domain.Entities.Route, RouteSummaryDto>();
+
+        CreateMap<CreateDriverCommand, Driver>();
+        CreateMap<UpdateDriverCommand, Driver>();
     }
 }

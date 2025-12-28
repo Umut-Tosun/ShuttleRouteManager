@@ -4,7 +4,7 @@ using ShuttleRouteManager.Domain.Absractions;
 
 namespace ShuttleRouteManager.Application.Features.Buses.Result;
 
-public class GetBusesQueryResult : Entity
+public class GetBusesQueryResult : EntityDto
 {
     public string PlateNo { get; set; } = default!;
     public string Brand { get; set; } = default!;
@@ -13,6 +13,6 @@ public class GetBusesQueryResult : Entity
     public int Capacity { get; set; }
     public decimal Km { get; set; }
     public Guid CompanyId { get; set; }
-    public GetCompaniesQueryResult? Company { get; set; }
-   public ICollection<GetRoutesQueryResult>? Routes { get; set; }
+
+    // SİL: Company ve Routes
 }

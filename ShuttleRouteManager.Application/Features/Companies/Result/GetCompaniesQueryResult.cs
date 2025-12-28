@@ -4,7 +4,7 @@ using ShuttleRouteManager.Domain.Absractions;
 
 namespace ShuttleRouteManager.Application.Features.Companies.Result;
 
-public class GetCompaniesQueryResult : Entity
+public class GetCompaniesQueryResult : EntityDto
 {
     public string Name { get; set; } = default!;
     public string Address { get; set; } = default!;
@@ -14,6 +14,5 @@ public class GetCompaniesQueryResult : Entity
     public string TaxNumber { get; set; } = default!;
     public DateTimeOffset ContractDate { get; set; }
     public DateTimeOffset ContractEndDate { get; set; }
-    public ICollection<GetDriversQueryResult>? Drivers { get; set; }
-    public ICollection<GetBusesQueryResult>? Buses { get; set; }
+  
 }

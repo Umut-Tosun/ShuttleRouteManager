@@ -1,10 +1,11 @@
 ﻿using ShuttleRouteManager.Application.Features.Companies.Result;
+using ShuttleRouteManager.Application.Features.Drivers.Result;
 using ShuttleRouteManager.Application.Features.Routes.Result;
 using ShuttleRouteManager.Domain.Absractions;
 
 namespace ShuttleRouteManager.Application.Features.Buses.Result;
 
-public class GetBusByIdQueryResult : Entity
+public class GetBusByIdQueryResult : EntityDto
 {
     public string PlateNo { get; set; } = default!;
     public string Brand { get; set; } = default!;
@@ -13,6 +14,8 @@ public class GetBusByIdQueryResult : Entity
     public int Capacity { get; set; }
     public decimal Km { get; set; }
     public Guid CompanyId { get; set; }
-    public GetCompaniesQueryResult? Company { get; set; }
-    public ICollection<GetRoutesQueryResult>? Routes { get; set; }
+
+    
+    public CompanySummaryDto? Company { get; set; }
+    public List<RouteSummaryDto> Routes { get; set; } = new();
 }

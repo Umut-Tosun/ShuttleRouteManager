@@ -20,3 +20,6 @@ public class CreateTripAppUserCommandHandler(
         return BaseResult<object>.Success(tripAppUser);
     }
 }
+
+
+

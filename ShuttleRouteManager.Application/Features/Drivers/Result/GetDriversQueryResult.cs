@@ -4,7 +4,7 @@ using ShuttleRouteManager.Domain.Absractions;
 
 namespace ShuttleRouteManager.Application.Features.Drivers.Result;
 
-public class GetDriversQueryResult : Entity
+public class GetDriversQueryResult : EntityDto
 {
     public string FirstName { get; set; } = default!;
     public string LastName { get; set; } = default!;
@@ -12,6 +12,6 @@ public class GetDriversQueryResult : Entity
     public string LicenseNumber { get; set; } = default!;
     public DateTimeOffset JobStartDate { get; set; }
     public Guid CompanyId { get; set; }
-    public GetCompaniesQueryResult? Company { get; set; }
-    public ICollection<GetRoutesQueryResult>? Routes { get; set; }
+
+    
 }
