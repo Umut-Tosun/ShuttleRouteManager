@@ -2,7 +2,7 @@
 
 namespace ShuttleRouteManager.Domain.Entities;
 
-public sealed class AppUser : IdentityUser<Guid>
+public class AppUser : IdentityUser<Guid>
 {
     public AppUser()
     {
@@ -14,8 +14,8 @@ public sealed class AppUser : IdentityUser<Guid>
     public string HomeCity { get; set; } = default!;
     public string HomeDistrict { get; set; } = default!;
     public string HomeAddress { get; set; } = default!;
-    public string HomeLatitude { get; set; } = default!;
-    public string HomeLongitude { get; set; } = default!;
+    public decimal HomeLatitude { get; set; } = default!;
+    public decimal HomeLongitude { get; set; } = default!;
 
     public DateTimeOffset CreatedDate { get; set; } = DateTime.Now;
     public Guid CreateUserId { get; set; } = default!;
@@ -24,7 +24,8 @@ public sealed class AppUser : IdentityUser<Guid>
     public bool IsDeleted { get; set; } = false;
     public Guid? DeletedUserId { get; set; }
     public DateTimeOffset? DeletedDate { get; set; }
-
-
+    public Guid? DefaultRouteStopId { get; set; }
+    public virtual RouteStop? DefaultRouteStop { get; set; } = default!;
+    public virtual ICollection<TripAppUser> TripAppUsers { get; set; } = new List<TripAppUser>();
 
 }

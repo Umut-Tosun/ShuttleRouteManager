@@ -2,7 +2,7 @@
 
 namespace ShuttleRouteManager.Domain.Entities;
 
-public sealed class Company : Entity
+public class Company : Entity
 {
     public string Name { get; set; } = default!;
     public string Address { get; set; } = default!;
@@ -12,4 +12,6 @@ public sealed class Company : Entity
     public string TaxNumber { get; set; } = default!;
     public DateTimeOffset ContractDate { get; set; } 
     public DateTimeOffset ContractEndDate { get; set; }
+    public virtual ICollection<Driver> Drivers { get; set; } = new List<Driver>();
+    public virtual ICollection<Bus> Buses { get; set; } = new List<Bus>();
 }

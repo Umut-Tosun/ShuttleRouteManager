@@ -1,22 +1,22 @@
 ﻿using ShuttleRouteManager.Domain.Absractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace ShuttleRouteManager.Domain.Entities
+namespace ShuttleRouteManager.Domain.Entities;
+
+public  class TripAppUser : Entity
 {
-    public sealed class TripAppUser : Entity
-    {
-        public DateTimeOffset Date { get; set; }    
-        public TripType tripType { get; set; }
-        public TimeSpan plannedTime { get; set; }
-
-    }
-    public enum TripType
-    {
-        Morning = 1,
-        Evening = 2
-    }
+   
+    public Guid AppUserId { get; set; }
+    public virtual AppUser AppUser { get; set; } = default!;
+    public Guid RouteId { get; set; }
+    public virtual Route Route { get; set; } = default!;
+    public Guid RouteStopId { get; set; }
+    public virtual RouteStop RouteStop { get; set; } = default!;
+    public TripType TripType { get; set; }
+    public DateTimeOffset? ValidFrom { get; set; }
+    public DateTimeOffset? ValidUntil { get; set; }
+}
+public enum TripType
+{
+    Morning = 1,
+    Evening = 2
 }

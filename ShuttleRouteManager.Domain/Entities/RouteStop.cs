@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShuttleRouteManager.Domain.Entities
 {
-    public sealed class RouteStop : Entity
+    public  class RouteStop : Entity
     {
        public int SequenceNumber { get; set; }
         public string City { get; set; } = default!;
@@ -17,6 +17,10 @@ namespace ShuttleRouteManager.Domain.Entities
         public decimal Longitude { get; set; } = default!;
         public TimeSpan EstimatedArrivalTimeMorning { get; set; } = default!;
         public TimeSpan EstimatedArrivalTimeEvening { get; set; } = default!;
+        public Guid RouteId { get; set; }
+        public virtual Route Route { get; set; } = default!;
+        public virtual ICollection<AppUser> DefaultAppUsers { get; set; } = new List<AppUser>();
+        public virtual ICollection<TripAppUser> TripAppUsers { get; set; } = new List<TripAppUser>();
 
     }
 }

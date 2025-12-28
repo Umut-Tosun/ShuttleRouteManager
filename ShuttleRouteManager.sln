@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35919.96 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShuttleRouteManager.Domain", "ShuttleRouteManager.Domain\ShuttleRouteManager.Domain.csproj", "{3EA56A82-C4BF-4668-AA8E-3039764B18D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShuttleRouteManager.Application", "ShuttleRouteManager.Application\ShuttleRouteManager.Application.csproj", "{62078708-C4D5-4574-81FB-5BF2BB97C56A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3EA56A82-C4BF-4668-AA8E-3039764B18D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EA56A82-C4BF-4668-AA8E-3039764B18D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EA56A82-C4BF-4668-AA8E-3039764B18D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62078708-C4D5-4574-81FB-5BF2BB97C56A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62078708-C4D5-4574-81FB-5BF2BB97C56A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62078708-C4D5-4574-81FB-5BF2BB97C56A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62078708-C4D5-4574-81FB-5BF2BB97C56A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
