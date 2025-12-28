@@ -9,7 +9,7 @@ namespace ShuttleRouteManager.Domain.Entities
 {
     public  class RouteStop : Entity
     {
-       public int SequenceNumber { get; set; }
+        public int SequenceNumber { get; set; }
         public string City { get; set; } = default!;
         public string District { get; set; } = default!;
         public string Address { get; set; } = default!;

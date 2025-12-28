@@ -16,7 +16,7 @@ public class AppUser : IdentityUser<Guid>
     public string HomeAddress { get; set; } = default!;
     public decimal HomeLatitude { get; set; } = default!;
     public decimal HomeLongitude { get; set; } = default!;
-
+    #region auit
     public DateTimeOffset CreatedDate { get; set; } = DateTime.Now;
     public Guid CreateUserId { get; set; } = default!;
     public DateTimeOffset LastUpdatedDate { get; set; }
@@ -24,6 +24,7 @@ public class AppUser : IdentityUser<Guid>
     public bool IsDeleted { get; set; } = false;
     public Guid? DeletedUserId { get; set; }
     public DateTimeOffset? DeletedDate { get; set; }
+    #endregion
     public Guid? DefaultRouteStopId { get; set; }
     public virtual RouteStop? DefaultRouteStop { get; set; } = default!;
     public virtual ICollection<TripAppUser> TripAppUsers { get; set; } = new List<TripAppUser>();
