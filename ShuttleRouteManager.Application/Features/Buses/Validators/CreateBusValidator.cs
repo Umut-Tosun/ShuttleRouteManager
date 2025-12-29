@@ -35,10 +35,7 @@ public class CreateBusValidator : AbstractValidator<CreateBusCommand>
 
         RuleFor(x => x.CompanyId)
             .NotEmpty().WithMessage("Şirket seçimi zorunludur.");
+
+        // DefaultDriverId opsiyonel, validasyon gereksiz
     }
 }
-
-
-
-
-

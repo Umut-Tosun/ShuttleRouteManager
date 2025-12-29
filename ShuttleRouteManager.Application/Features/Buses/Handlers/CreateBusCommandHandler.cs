@@ -8,9 +8,9 @@ using ShuttleRouteManager.Domain.Entities;
 namespace ShuttleRouteManager.Application.Features.Buses.Handlers;
 
 public class CreateBusCommandHandler(
-IRepository<Bus> repository,
-IMapper mapper,
-IUnitOfWork unitOfWork) : IRequestHandler<CreateBusCommand, BaseResult<object>>
+    IRepository<Bus> repository,
+    IMapper mapper,
+    IUnitOfWork unitOfWork) : IRequestHandler<CreateBusCommand, BaseResult<object>>
 {
     public async Task<BaseResult<object>> Handle(CreateBusCommand request, CancellationToken cancellationToken)
     {

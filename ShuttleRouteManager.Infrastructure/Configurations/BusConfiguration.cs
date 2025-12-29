@@ -25,21 +25,27 @@ internal sealed class BusConfiguration : IEntityTypeConfiguration<Bus>
         builder.Property(b => b.Km)
             .HasPrecision(18, 2);
 
-       
         builder.HasIndex(b => b.PlateNo).IsUnique();
 
-       
+        // Company ilişkisi
         builder.HasOne(b => b.Company)
             .WithMany(c => c.Buses)
             .HasForeignKey(b => b.CompanyId)
             .OnDelete(DeleteBehavior.Restrict);
 
+        // YENİ: DefaultDriver ilişkisi (opsiyonel)
+        builder.HasOne(b => b.DefaultDriver)
+            .WithMany() // Driver'da Buses collection'ı yok
+            .HasForeignKey(b => b.DefaultDriverId)
+            .OnDelete(DeleteBehavior.SetNull) // Driver silinirse null yap
+            .IsRequired(false);
+
+        // Routes ilişkisi
         builder.HasMany(b => b.Routes)
             .WithOne(r => r.Bus)
             .HasForeignKey(r => r.BusId)
             .OnDelete(DeleteBehavior.Restrict);
 
-       
         builder.HasQueryFilter(b => !b.IsDeleted);
     }
 }

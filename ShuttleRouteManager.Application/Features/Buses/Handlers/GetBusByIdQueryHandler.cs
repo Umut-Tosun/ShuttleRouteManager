@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using ShuttleRouteManager.Application.Base;
 using ShuttleRouteManager.Application.Contracts.Persistence;
 using ShuttleRouteManager.Application.Features.Buses.Queries;
@@ -14,13 +15,18 @@ public class GetBusByIdQueryHandler(
 {
     public async Task<BaseResult<GetBusByIdQueryResult>> Handle(GetBusByIdQuery request, CancellationToken cancellationToken)
     {
-        var bus = await repository.GetByIdAsync(request.Id);
+        var bus = await repository.GetQuery()
+            .Include(b => b.Company)
+            .Include(b => b.DefaultDriver) 
+            .Include(b => b.Routes)
+                .ThenInclude(r => r.Driver)
+            .FirstOrDefaultAsync(b => b.Id == request.Id, cancellationToken);
+
         if (bus == null)
-        {
-            return BaseResult<GetBusByIdQueryResult>.NotFound("Otobüs bulunamadı.");
-        }
+            return BaseResult<GetBusByIdQueryResult>.Failure("Otobüs bulunamadı");
 
         var result = mapper.Map<GetBusByIdQueryResult>(bus);
+
         return BaseResult<GetBusByIdQueryResult>.Success(result);
     }
 }

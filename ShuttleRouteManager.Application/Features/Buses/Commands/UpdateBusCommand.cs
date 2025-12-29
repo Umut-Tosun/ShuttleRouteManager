@@ -13,4 +13,5 @@ public class UpdateBusCommand : IRequest<BaseResult<object>>
     public int Capacity { get; set; }
     public decimal Km { get; set; }
     public Guid CompanyId { get; set; }
+    public Guid? DefaultDriverId { get; set; } // YENİ
 }
