@@ -6,13 +6,19 @@ using Microsoft.EntityFrameworkCore;
 using ShuttleRouteManager.Application.Contracts.Persistence;
 using ShuttleRouteManager.Domain.Absractions;
 using ShuttleRouteManager.Domain.Entities;
+using System.Security.Claims;
 
 namespace ShuttleRouteManager.Infrastructure.Context;
 
 internal class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IUnitOfWork
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+    private readonly IHttpContextAccessor _httpContextAccessor;
+
+    public ApplicationDbContext(
+        DbContextOptions<ApplicationDbContext> options,
+        IHttpContextAccessor httpContextAccessor) : base(options)
     {
+        _httpContextAccessor = httpContextAccessor;
     }
 
     public DbSet<Company> Companies { get; set; }
@@ -26,7 +32,6 @@ internal class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Gu
     {
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-        
         modelBuilder.Ignore<IdentityUserClaim<Guid>>();
         modelBuilder.Ignore<IdentityRoleClaim<Guid>>();
         modelBuilder.Ignore<IdentityUserToken<Guid>>();
@@ -36,42 +41,58 @@ internal class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Gu
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {
-        var entries = ChangeTracker.Entries<Entity>();
-        HttpContextAccessor httpContextAccessor = new();
+        Console.WriteLine("=== SaveChangesAsync STARTED ===");
 
-        // Kullanıcı ID'sini al (JWT token'dan)
-        var userIdClaim = httpContextAccessor.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == "sub");
+        var allEntries = ChangeTracker.Entries().ToList();
+        Console.WriteLine($"Total tracked entries: {allEntries.Count}");
+
+        foreach (var e in allEntries)
+        {
+            Console.WriteLine($"  - Type: {e.Entity.GetType().Name}, State: {e.State}");
+        }
+
+        var entries = ChangeTracker.Entries<Entity>().ToList();
+        Console.WriteLine($"Entity base class entries: {entries.Count}");
+
+        var userIdClaim = _httpContextAccessor.HttpContext?.User?.Claims
+            .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+
         Guid userId = userIdClaim != null ? Guid.Parse(userIdClaim.Value) : Guid.Empty;
+        Console.WriteLine($"UserId from token: {userId}");
 
         foreach (var entry in entries)
         {
+            Console.WriteLine($"Processing entity: {entry.Entity.GetType().Name}, State: {entry.State}");
+
             if (entry.State == EntityState.Added)
             {
                 entry.Entity.CreatedDate = DateTimeOffset.Now;
                 entry.Property(p => p.CreateUserId).CurrentValue = userId;
+                Console.WriteLine($"  -> Set CreatedDate and CreateUserId");
             }
             else if (entry.State == EntityState.Modified)
             {
                 if (entry.Property(p => p.IsDeleted).CurrentValue == true)
                 {
-                    // Soft delete
                     entry.Entity.DeletedDate = DateTimeOffset.Now;
                     entry.Property(p => p.DeletedUserId).CurrentValue = userId;
+                    Console.WriteLine($"  -> Soft delete");
                 }
                 else
                 {
                     entry.Entity.LastUpdatedDate = DateTimeOffset.Now;
                     entry.Property(p => p.LastUpdateUserId).CurrentValue = userId;
+                    Console.WriteLine($"  -> Updated");
                 }
             }
 
             if (entry.State == EntityState.Deleted)
             {
-                // Hard delete'e izin verme - soft delete kullan
                 throw new InvalidOperationException("Physical deletion is not allowed. Use soft delete by setting IsDeleted to true.");
             }
         }
 
+        Console.WriteLine("=== SaveChangesAsync FINISHED ===");
         return base.SaveChangesAsync(cancellationToken);
     }
 
