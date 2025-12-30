@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace ShuttleRouteManager.Infrastructure.Context;
 
-internal class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IUnitOfWork
+public class ApplicationDbContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>, IUnitOfWork
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
 

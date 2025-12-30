@@ -14,7 +14,8 @@ public class GetTripAppUsersQueryResult : Entity
     public GetRoutesQueryResult? Route { get; set; }
     public Guid RouteStopId { get; set; }
     public GetRouteStopsQueryResult? RouteStop { get; set; }
-    public TripType TripType { get; set; }
+    public bool IsMorningTripActive { get; set; }
+    public bool IsEveningTripActive { get; set; }
     public DateTimeOffset? ValidFrom { get; set; }
     public DateTimeOffset? ValidUntil { get; set; }
 }

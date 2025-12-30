@@ -7,20 +7,24 @@ public class CreateTripAppUserValidator : AbstractValidator<CreateTripAppUserCom
     public CreateTripAppUserValidator()
     {
         RuleFor(x => x.AppUserId)
-            .NotEmpty().WithMessage("Kullanıcı seçimi zorunludur.");
+            .NotEmpty().WithMessage("Kullanıcı seçilmelidir.");
 
         RuleFor(x => x.RouteId)
-            .NotEmpty().WithMessage("Rota seçimi zorunludur.");
+            .NotEmpty().WithMessage("Rota seçilmelidir.");
 
         RuleFor(x => x.RouteStopId)
-            .NotEmpty().WithMessage("Durak seçimi zorunludur.");
+            .NotEmpty().WithMessage("Durak seçilmelidir.");
 
-        RuleFor(x => x.TripType)
-            .IsInEnum().WithMessage("Geçerli bir sefer tipi seçiniz.");
+        
+        RuleFor(x => x)
+            .Must(x => x.IsMorningTripActive || x.IsEveningTripActive)
+            .WithMessage("En az bir sefer tipi (Sabah veya Akşam) seçilmelidir.");
 
         RuleFor(x => x.ValidFrom)
-            .LessThan(x => x.ValidUntil)
-            .When(x => x.ValidFrom.HasValue && x.ValidUntil.HasValue)
-            .WithMessage("Başlangıç tarihi, bitiş tarihinden önce olmalıdır.");
+            .NotNull().WithMessage("Geçerlilik başlangıç tarihi zorunludur.");
+
+        RuleFor(x => x.ValidUntil)
+            .NotNull().WithMessage("Geçerlilik bitiş tarihi zorunludur.")
+            .GreaterThan(x => x.ValidFrom).WithMessage("Bitiş tarihi, başlangıç tarihinden sonra olmalıdır.");
     }
 }

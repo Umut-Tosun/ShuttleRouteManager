@@ -10,7 +10,6 @@ internal sealed class TripAppUserConfiguration : IEntityTypeConfiguration<TripAp
     {
         builder.HasKey(t => t.Id);
 
-      
         builder.HasOne(t => t.AppUser)
             .WithMany(u => u.TripAppUsers)
             .HasForeignKey(t => t.AppUserId)
@@ -26,14 +25,19 @@ internal sealed class TripAppUserConfiguration : IEntityTypeConfiguration<TripAp
             .HasForeignKey(t => t.RouteStopId)
             .OnDelete(DeleteBehavior.Restrict);
 
-      
-        builder.Property(t => t.TripType)
-            .HasConversion<string>();
+       
+        builder.Property(t => t.IsMorningTripActive)
+            .IsRequired()
+            .HasDefaultValue(false);
 
-      
-        builder.HasIndex(t => new { t.AppUserId, t.RouteId, t.TripType });
+        builder.Property(t => t.IsEveningTripActive)
+            .IsRequired()
+            .HasDefaultValue(false);
 
-      
+       
+        builder.HasIndex(t => new { t.AppUserId, t.RouteId, t.IsMorningTripActive, t.IsEveningTripActive })
+            .HasDatabaseName("IX_TripAppUser_User_Route_TripTypes");
+
         builder.HasQueryFilter(t => !t.IsDeleted);
     }
 }

@@ -1,4 +1,4 @@
-using Scalar.AspNetCore;
+﻿using Scalar.AspNetCore;
 using ShuttleRouteManager.Application.Extensions;
 using ShuttleRouteManager.Infrastructure.Extensions;
 using System.Text.Json.Serialization;
@@ -13,9 +13,7 @@ builder.Services.ConfigureHttpJsonOptions(options =>
     options.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
 });
 
-
 builder.Services.AddOpenApi();
-
 
 builder.Services.AddCors(options =>
 {
@@ -27,13 +25,13 @@ builder.Services.AddCors(options =>
     });
 });
 
-
 builder.Services.AddExceptionHandler<ExceptionHandler>();
 builder.Services.AddProblemDetails();
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
-
 builder.Services.AddAuthorization();
 
 var app = builder.Build();
@@ -48,9 +46,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-
 app.UseExceptionHandler();
-
 app.UseHttpsRedirection();
 app.UseCors();
 app.UseAuthentication();

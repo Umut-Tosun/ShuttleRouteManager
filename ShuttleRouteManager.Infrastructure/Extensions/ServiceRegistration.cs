@@ -17,17 +17,17 @@ public static class ServiceRegistration
 {
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
-        // HttpContextAccessor
+        
         services.AddHttpContextAccessor();
 
-        // Database Context
+       
         services.AddDbContext<ApplicationDbContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
             options.UseLazyLoadingProxies();
         });
 
-        // Identity
+       
         services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
         {
             options.Password.RequiredLength = 6;
@@ -40,7 +40,7 @@ public static class ServiceRegistration
         .AddEntityFrameworkStores<ApplicationDbContext>()
         .AddDefaultTokenProviders();
 
-        // JWT Authentication
+     
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -62,11 +62,12 @@ public static class ServiceRegistration
             };
         });
 
-        // Repositories
+        
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         services.AddScoped<IUnitOfWork>(sp => sp.GetRequiredService<ApplicationDbContext>());
 
-        // Services
+      
         services.AddScoped<IJwtService, JwtService>();
+        
     }
 }
