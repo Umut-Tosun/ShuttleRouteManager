@@ -11,7 +11,7 @@ public static class BusEndpoints
 {
     public static void RegisterBusEndpoints(this IEndpointRouteBuilder app)
     {
-        var buses = app.MapGroup("/buses").WithTags("Buses");
+        var buses = app.MapGroup("/buses").WithTags("Buses").RequireAuthorization();
 
         buses.MapGet(string.Empty, async (IMediator mediator) =>
         {

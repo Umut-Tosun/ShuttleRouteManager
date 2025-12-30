@@ -10,7 +10,7 @@ public static class CompanyEndpoints
 {
     public static void RegisterCompanyEndpoints(this IEndpointRouteBuilder app)
     {
-        var companies = app.MapGroup("/companies").WithTags("Companies");
+        var companies = app.MapGroup("/companies").WithTags("Companies").RequireAuthorization();
 
         companies.MapGet(string.Empty, async (IMediator mediator) =>
         {

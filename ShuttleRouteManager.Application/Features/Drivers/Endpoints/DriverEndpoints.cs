@@ -16,7 +16,7 @@ namespace ShuttleRouteManager.Application.Features.Drivers.Endpoints
     {
         public static void RegisterDriverEndpoints(this IEndpointRouteBuilder app)
         {
-            var drivers = app.MapGroup("/drivers").WithTags("Drivers");
+            var drivers = app.MapGroup("/drivers").WithTags("Drivers").RequireAuthorization();
 
             drivers.MapGet(string.Empty, async (IMediator mediator) =>
             {

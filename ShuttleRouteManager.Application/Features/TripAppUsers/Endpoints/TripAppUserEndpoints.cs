@@ -11,7 +11,7 @@ public static class TripAppUserEndpoints
 {
     public static void RegisterTripAppUserEndpoints(this IEndpointRouteBuilder app)
     {
-        var tripAppUsers = app.MapGroup("/tripappusers").WithTags("TripAppUsers");
+        var tripAppUsers = app.MapGroup("/tripappusers").WithTags("TripAppUsers").RequireAuthorization();
 
         tripAppUsers.MapGet(string.Empty, async (IMediator mediator) =>
         {

@@ -11,7 +11,7 @@ public static class RouteEndpoints
 {
     public static void RegisterRouteEndpoints(this IEndpointRouteBuilder app)
     {
-        var routes = app.MapGroup("/routes").WithTags("Routes");
+        var routes = app.MapGroup("/routes").WithTags("Routes").RequireAuthorization();
 
         routes.MapGet(string.Empty, async (IMediator mediator) =>
         {

@@ -17,7 +17,7 @@ public static class AppUserEndpoints
         {
             var response = await mediator.Send(command);
             return response.IsSuccess ? Results.Ok(response) : Results.BadRequest(response);
-        }).AllowAnonymous();
+        }).AllowAnonymous().RequireAuthorization();
 
         users.MapPost("/login", async (IMediator mediator, LoginQuery query) =>
         {
@@ -29,18 +29,18 @@ public static class AppUserEndpoints
         {
             var response = await mediator.Send(new GetUsersQuery());
             return response.IsSuccess ? Results.Ok(response) : Results.BadRequest(response);
-        });
+        }).RequireAuthorization();
 
         users.MapGet("/{id:guid}", async (IMediator mediator, Guid id) =>
         {
             var response = await mediator.Send(new GetUserByIdQuery(id));
             return response.IsSuccess ? Results.Ok(response) : Results.NotFound(response);
-        });
+        }).RequireAuthorization();
 
         users.MapPut(string.Empty, async (IMediator mediator, UpdateUserCommand command) =>
         {
             var response = await mediator.Send(command);
             return response.IsSuccess ? Results.Ok(response) : Results.BadRequest(response);
-        });
+        }).RequireAuthorization();
     }
 }

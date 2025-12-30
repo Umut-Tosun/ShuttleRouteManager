@@ -11,7 +11,7 @@ public static class RouteStopEndpoints
 {
     public static void RegisterRouteStopEndpoints(this IEndpointRouteBuilder app)
     {
-        var routeStops = app.MapGroup("/routestops").WithTags("RouteStops");
+        var routeStops = app.MapGroup("/routestops").WithTags("RouteStops").RequireAuthorization();
 
         routeStops.MapGet(string.Empty, async (IMediator mediator) =>
         {
